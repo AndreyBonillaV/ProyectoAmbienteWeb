@@ -178,11 +178,11 @@ function Registro(cedula, nombre, apellido, fecha, tel, correo, password){
         if (XHR.readyState == 4 && XHR.status == 200) {
 
             if (XHR.responseText == "okRegistro") {
-                console.log(XHR.responseText);
+                //console.log(XHR.responseText);
                 alert("Usuario agregado correctamente!!!");
                 return true;
             } else {
-                console.log(XHR.responseText);
+                //console.log(XHR.responseText);
                 alert("Error al agregar usuario");
                 return false;
             }
@@ -474,10 +474,11 @@ function EditarUsuario(){
                 
                             if (XHR.responseText == "okEditar") {
                                 console.log(XHR.responseText);
-                                CargarUsuarios();
+
                                 alert("Usuario modificado correctamente!!!");
-                                //cerrar modal
+                                CargarUsuarios();
                                 return true;
+
                             } else {
                                 console.log(XHR.responseText);
                                 alert("Error al modificar usuario");
@@ -496,30 +497,46 @@ function EditarUsuario(){
 
 function ValidarRolUsuario(){
 
-
     var IdRol = sessionStorage.getItem("IdRol");
+    console.log(IdRol);
 
     if(IdRol == 1){
-        console.log("Admin");
         document.getElementById("AdminMenu").style.display  = "block";
+        document.getElementById("ProvMenu").style.display  = "block";
+
+        document.getElementById("btnCerrar").style.display  = "block";
+        document.getElementById("btnIniciar").style.display  = "none";
+        document.getElementById("btnRegistro").style.display  = "none";
+
+    }else if(IdRol == 2){
+
+        document.getElementById("btnCerrar").style.display  = "block";
+        document.getElementById("btnIniciar").style.display  = "none";
+        document.getElementById("btnRegistro").style.display  = "none";
+
+    }else if (IdRol == 3){
+        document.getElementById("ProvMenu").style.display  = "block";
+
         document.getElementById("btnCerrar").style.display  = "block";
         document.getElementById("btnIniciar").style.display  = "none";
         document.getElementById("btnRegistro").style.display  = "none";
     }
-   
+
+
 }
 
 function CerrarSesion(){
 
-    var IdRol = sessionStorage.getItem("IdRol");
+    //var IdRol = sessionStorage.getItem("IdRol");
 
-    if(IdRol == 1){
-        document.getElementById("AdminMenu").style.display  = "none";
-        document.getElementById("btnCerrar").style.display  = "none";
-        document.getElementById("btnIniciar").style.display  = "block";
-        document.getElementById("btnRegistro").style.display  = "block";
-        sessionStorage.clear();
-    }
+    document.getElementById("AdminMenu").style.display  = "none";
+    document.getElementById("ProvMenu").style.display  = "none";
+    document.getElementById("btnCerrar").style.display  = "none";
+    
+    document.getElementById("btnIniciar").style.display  = "block";
+    document.getElementById("btnRegistro").style.display  = "block";
+
+    sessionStorage.clear();
 }
 
 function CargarRoles(){
@@ -540,8 +557,8 @@ function CargarRoles(){
 
             var roles = JSON.parse(XHR.responseText);
 
-            console.log(roles);
-            console.log(roles.length);
+            //console.log(roles);
+            //console.log(roles.length);
 
             var select = document.getElementById('selRoles');
 
