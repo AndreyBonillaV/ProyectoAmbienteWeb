@@ -38,6 +38,28 @@
             echo $result;
         break;
 
+        case "EDITAR_PRODUCTO":
+
+            $idProd = $_GET["var1"];
+            $nom = $_GET["var2"];
+            $descrip = $_GET["var3"];
+            $img = $_GET["var4"];
+            $precio = $_GET["var5"];
+            $cant = $_GET["var6"];
+            $tipo = $_GET["var7"];
+            $prov = $_GET["var8"];
+
+            $result = EditarProducto($idProd, $nom, $descrip, $img, $precio, $cant, $tipo, $prov);
+
+            echo $result;
+        break;
+
+        case "CARGAR_PRODUCTOS_TIPO":
+            $idTipo = $_GET["var1"];
+            $result = CargarProductosTipo($idTipo);
+            echo $result;
+        break;
+
         default:
             echo "0";
     }
@@ -115,5 +137,42 @@
             return "okRegistro";    
         }
 
+    }
+
+    function EditarProducto($idProd, $nom, $descrip, $img, $precio, $cant, $tipo, $prov){
+
+        require_once('conexionBD.php');
+
+        $sql_query = "UPDATE tbProducto SET NombreProducto='".$nom."', DescripProducto='".$descrip."', RutaImagenProducto='".$img."', 
+        PrecioProducto='".$precio."', CantidadTotal='".$cant."', IdTipoProducto='".$tipo."', idProvedor='".$prov."' WHERE idProducto = $idProd";
+
+        if (mysqli_query($conn, $sql_query)) {
+            return "okEditar";
+        } else {
+            return mysqli_error($conn);
+        }
+
+    }
+
+    function CargarProductosTipo($idTipo){
+        require_once('conexionBD.php');
+
+        $sql_query = "SELECT p.idProducto, p.NombreProducto, p.DescripProducto, p.RutaImagenProducto, p.idProducto, p.PrecioProducto, p.CantidadTotal, tp.NombreTipoProducto AS Tipo, prov.NombreEmpresa
+        FROM tbProducto p, tbtipoproducto tp, tbproveedor prov WHERE p.idTipoProducto = tp.IdTipoProducto AND p.idProvedor = prov.idProvedor AND p.idTipoProducto = '".$idTipo."'";
+
+        $result = mysqli_query($conn, $sql_query);
+
+        if(mysqli_num_rows($result)>0){ 
+
+            $productos = array();
+            while($fila = mysqli_fetch_assoc($result)) {
+                $productos[] = $fila;
+            }
+
+            header('Content-Type: application/json');
+            return json_encode($productos);
+        }else{
+            return "Error";
+        }
     }
 ?>

@@ -1,4 +1,4 @@
-function CargarProductos() {
+function CargarProductos(opcion) {
 
     var opc = "CARGAR_PRODUCTOS";
     var XHR = new XMLHttpRequest();
@@ -15,8 +15,12 @@ function CargarProductos() {
         if (XHR.readyState == 4 && XHR.status == 200) {
 
             var data = JSON.parse(XHR.responseText);
-
-            CargarTablaProductos(data);
+            if(opcion == 1){
+                CargarTablaProductos(data);
+            }else{
+                CargarTablaProductosClientes(data);
+            }
+            
         }
     }
 }
@@ -52,7 +56,7 @@ function CargarProveedor() {
     }
 }
 
-function CargarTipos() {
+function CargarTipos(opcion) {
 
     var opc = "CARGAR_TIPOS";
     var XHR = new XMLHttpRequest();
@@ -72,12 +76,28 @@ function CargarTipos() {
 
             var select = document.getElementById('selTipo');
 
-            for (var i = 0; i < data.length; i++){
+            if(opcion == 1){
+                for (var i = 0; i < data.length; i++){
 
+                    var opt = document.createElement('option');
+                    opt.innerHTML = data[i].NombreTipoProducto;
+                    opt.value = data[i].IdTipoProducto;
+                    select.appendChild(opt);
+                }
+            }else{
+                
                 var opt = document.createElement('option');
-                opt.innerHTML = data[i].NombreTipoProducto;
-                opt.value = data[i].IdTipoProducto;
+                opt.innerHTML = "Todos";
+                opt.value = "0";
                 select.appendChild(opt);
+
+                for (var i = 0; i < data.length; i++){
+
+                    var opt = document.createElement('option');
+                    opt.innerHTML = data[i].NombreTipoProducto;
+                    opt.value = data[i].IdTipoProducto;
+                    select.appendChild(opt);
+                }
             }
         }
     }
@@ -94,7 +114,6 @@ function CargarTablaProductos(data) {
             cellNombre = document.createElement('td'),
             cellDescrip = document.createElement('td'),
             cellImg = document.createElement('td'),
-            cellPrecio = document.createElement('td'),
             cellPrecio = document.createElement('td'),
             cellCantidad = document.createElement('td'),
             cellTipo = document.createElement('td'),
@@ -209,7 +228,7 @@ function EliminarProducto(idProducto){
 
 function PrepararRegistro(){
 
-    //document.getElementById("txtID").value;
+    var idProd = document.getElementById("txtID").value;
     var nom = document.getElementById("txtNombre").value;
     var descrip = document.getElementById("txtDescrip").value;
     var img = document.getElementById("txtImg").value;
@@ -223,10 +242,12 @@ function PrepararRegistro(){
         alert("Debe llenar todos los campos");
     }else{
 
-        RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov);
-
+        if(idProd == ""){
+            RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov);
+        }else{
+            EditarProducto(idProd, nom, descrip, img, precio, cant, tipo, prov);
+        }
     }
-
 }
 
 function RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov){
@@ -261,6 +282,42 @@ function RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov){
 
 }
 
+function EditarProducto(idProd, nom, descrip, img, precio, cant, tipo, prov){
+
+    //console.log("Editar");
+
+    var XHR = new XMLHttpRequest();
+
+    var opc = "EDITAR_PRODUCTO";
+
+    XHR.open(
+        "GET",
+        "productos.php?opc=" + opc + "&var1=" + idProd + "&var2=" + nom + "&var3=" + descrip + 
+        "&var4=" + img + "&var5=" + precio + "&var6=" + cant + "&var7=" + tipo + "&var8=" + prov,
+        true
+    );
+
+    XHR.send(null);
+
+    XHR.onreadystatechange = function() {
+        if (XHR.readyState == 4 && XHR.status == 200) {
+
+            if (XHR.responseText == "okEditar") {
+                console.log(XHR.responseText);
+
+                alert("Usuario modificado correctamente!!!");
+                CargarProductos();
+                return true;
+
+            } else {
+                console.log(XHR.responseText);
+                alert("Error al modificar usuario");
+                return false;
+            }
+        }
+    }
+}
+
 function limpiarModal(){
 
     document.getElementById("txtID").value = "";
@@ -271,6 +328,75 @@ function limpiarModal(){
     document.getElementById("txtCant").value = "";
     document.getElementById("selTipo").value = 1;
     document.getElementById("selProv").value = 1;
+}
+
+function CargarTablaProductosClientes(data){
+
+    tbody = document.querySelector('#tblProductos tbody');
+    tbody.innerHTML = '';
+
+    for (var i = 0; i < data.length; i++) {
+
+        var fila = document.createElement('tr'),
+            cellNombre = document.createElement('td'),
+            cellDescrip = document.createElement('td'),
+            cellPrecio = document.createElement('td'),
+            cellOpciones = document.createElement('td');
+
+        var img = document.createElement("img");
+        img.src = data[i].RutaImagenProducto;
+        img.height = 250;
+        img.width = 250;
+
+        var btnCarrito = document.createElement('input');
+        btnCarrito.type = 'button';
+        btnCarrito.value = 'Agregar al Carrito';
+        btnCarrito.id = data[i].idProducto;
+        btnCarrito.onclick = function () { AgregarCarrito(this.id) };
+
+        cellDescrip.innerHTML = "<b>" + data[i].NombreProducto + "</b><br><br>" + data[i].Tipo + " " + data[i].NombreEmpresa + "<br><br>" + data[i].DescripProducto;
+        cellPrecio.innerHTML = "₡" + data[i].PrecioProducto;
+
+        cellNombre.appendChild(img);
+        cellOpciones.appendChild(btnCarrito);
+
+        fila.appendChild(cellNombre);
+        fila.appendChild(cellDescrip);
+        fila.appendChild(cellPrecio);
+        fila.appendChild(cellOpciones);
+
+        tbody.appendChild(fila);
+    }
+}
+
+function ActualizarTabla(idTipo){
+
+    if(idTipo == 0){
+        CargarProductos(2);
+    }else{
+
+        var opc = "CARGAR_PRODUCTOS_TIPO";
+        var XHR = new XMLHttpRequest();
+    
+        XHR.open(
+            "GET",
+            "productos.php?opc=" + opc + "&var1=" + idTipo,
+            true
+        );
+    
+        XHR.send(null);
+    
+        XHR.onreadystatechange = function () {
+            if (XHR.readyState == 4 && XHR.status == 200) {
+    
+                var data = JSON.parse(XHR.responseText);
+                
+                CargarTablaProductosClientes(data);
+                
+            }
+        }
+
+    }
 }
 
 /*
