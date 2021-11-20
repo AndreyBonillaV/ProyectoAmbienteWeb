@@ -110,7 +110,7 @@ function CargarTablaProductos(data) {
         btnEditar.type = 'button';
         btnEditar.value = 'Editar';
         btnEditar.id = data[i].idProducto;
-        btnEditar.onclick = function () { CargarModal(this.id) };
+        btnEditar.onclick = function () { CargarModalProductos(this.id) };
         btnEditar.setAttribute('data-bs-toggle', 'modal');
         btnEditar.setAttribute('data-bs-target', '#exampleModal');
 
@@ -144,16 +144,133 @@ function CargarTablaProductos(data) {
     }
 }
 
-function CargarModalProductos(opc){
+function CargarModalProductos(idProd){
 
-    if(opc == 1){
+    limpiarModal();
 
-        CargarTipos();
-        CargarProveedor();
+    var opc = "CARGAR_MOD_PRODUCTO";
+    var XHR = new XMLHttpRequest();
 
+    XHR.open(
+        "GET",
+        "productos.php?opc=" + opc + "&var1=" + idProd,
+        true
+    );
+
+    XHR.send(null);
+
+    XHR.onreadystatechange = function() {
+        if (XHR.readyState == 4 && XHR.status == 200) {
+
+            var data = JSON.parse(XHR.responseText);
+
+            document.getElementById("txtID").value = data[0].idProducto;
+            document.getElementById("txtNombre").value = data[0].NombreProducto;
+            document.getElementById("txtDescrip").value = data[0].DescripProducto;
+            document.getElementById("txtImg").value = data[0].RutaImagenProducto;
+            document.getElementById("txtPrecio").value = data[0].PrecioProducto;
+            document.getElementById("txtCant").value = data[0].CantidadTotal;
+            document.getElementById("selTipo").value = data[0].IdTipoProducto;
+            document.getElementById("selProv").value = data[0].idProvedor;
+        }
+    }
+}
+
+function EliminarProducto(idProducto){
+
+    if (confirm('Seguro que desea elimar este usuario?')) {
+      
+        var opc = "ELIMINAR_PRODUCTO";
+        var XHR = new XMLHttpRequest();
+
+        XHR.open(
+            "GET",
+            "productos.php?opc=" + opc + "&var1=" + idProducto,
+            true
+        );
+
+        XHR.send(null);
+
+        XHR.onreadystatechange = function() {
+            if (XHR.readyState == 4 && XHR.status == 200) {
+
+                if (XHR.responseText == "okEliminado") {
+                    console.log(XHR.responseText);
+                    alert("Producto elimando!!!");
+                    CargarProductos();
+                } else {
+                    console.log("Error al eliminar usuario: " + XHR.responseText);
+                    alert("Error al eliminiar producto");
+                }
+            }
+        }
+    }
+}
+
+function PrepararRegistro(){
+
+    //document.getElementById("txtID").value;
+    var nom = document.getElementById("txtNombre").value;
+    var descrip = document.getElementById("txtDescrip").value;
+    var img = document.getElementById("txtImg").value;
+    var precio = document.getElementById("txtPrecio").value;
+    var cant = document.getElementById("txtCant").value;
+    var tipo = document.getElementById("selTipo").value;
+    var prov = document.getElementById("selProv").value;
+
+    if(nom == "" || descrip == "" || img == "" || precio == "" 
+    || cant == "" || tipo == "" || prov == ""){
+        alert("Debe llenar todos los campos");
     }else{
 
+        RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov);
+
     }
+
+}
+
+function RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov){
+
+    var XHR = new XMLHttpRequest();
+
+    var opc = "REGISTRO";
+
+    XHR.open(
+        "GET",
+        "productos.php?opc=" + opc + "&var1=" + nom + "&var2=" + descrip + "&var3=" + img + 
+        "&var4=" + precio + "&var5=" + cant + "&var6=" + tipo + "&var7=" + prov,
+        true
+    );
+
+    XHR.send(null);
+
+    XHR.onreadystatechange = function() {
+        if (XHR.readyState == 4 && XHR.status == 200) {
+
+            if (XHR.responseText == "okRegistro") {
+                //console.log(XHR.responseText);
+                alert("Producto agregado correctamente!!!");
+                CargarProductos() 
+            } else {
+                console.log(XHR.responseText);
+                alert("Error al agregar producto");
+                return false;
+            }
+        }
+    }
+
+}
+
+function limpiarModal(){
+
+    document.getElementById("txtID").value = "";
+    document.getElementById("txtNombre").value = "";
+    document.getElementById("txtDescrip").value = "";
+    document.getElementById("txtImg").value = "";
+    document.getElementById("txtPrecio").value = "";
+    document.getElementById("txtCant").value = "";
+    document.getElementById("selTipo").value = 1;
+    document.getElementById("selProv").value = 1;
 }
 
 /*
