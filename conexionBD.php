@@ -13,4 +13,15 @@
     /*else{
         echo "Conexion exitosa!!!!";
     }*/
+
+    function Conectar(){
+        
+        $mysqli = new mysqli("localhost","root","1234", "bd_ambiente");
+
+        if($mysqli -> connect_errno){
+            return false;
+
+        }
+        return $mysqli;
+    }
 ?>

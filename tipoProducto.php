@@ -1,34 +1,33 @@
+
 <?php
+    
+    include "conexionBD.php";
+    include "ModeloTablaTP.php";;
+    $conexion = Conectar();
 
-    switch($_GET["opc"]){
-
-        case "CARGAR_TIPOS":
-            $result = CargarTipos();
-            echo $result;
-        break;
-
-        default:
-            echo "0";
+    if(!$conexion)
+    echo "<div style='color:red;'>Error en la conexion a la base de datos</div>";
+    else{
+        echo "<div style ='color:green;'>Conexión exitosa a la base de datos</div>";
     }
+    ?>
+   <h1>Tipo de Productos</h1>
+   <h2>Tabla de elementos</h2> 
+   <?php
+   $lista = Tabla:: ObtenerTodos($conexion);
+   echo "<b>NOMBRE DE PRODUCTO</b><BR>";
+   /*obtener un array <asociativo></asociativo>*/
+   while($fila = $lista-> fetch_assoc()){
+       echo $fila["IdTipoProducto"]." - ".$fila["NombreTipoProducto"].
+       " - <a href ='#' onclick ='EliminarRegistroTP(" 
+       .$fila["IdTipoProducto"].")'>Eliminar</a>"
+       ."<br>";
+   }
 
+   $lista->free();
+    ?>
+<script language="JavaScript" type="text/javascript" src = "crudTipoProducto.js"></script> 
+<br><br>
+Nombre: <input type ="text" name="nombre" id="nombre" value=""><br><br>
 
-    function CargarTipos(){
-        require_once('conexionBD.php');
-
-        $sql_query = "SELECT * FROM tbTipoProducto";
-        $result = mysqli_query($conn, $sql_query);
-
-        if(mysqli_num_rows($result)>0){ 
-
-            $productos = array();
-            while($fila = mysqli_fetch_assoc($result)) {
-                $productos[] = $fila;
-            }
-
-            header('Content-Type: application/json');
-            return json_encode($productos);
-        }else{
-            return "Error";
-        }
-    }
-?>
+<input type="button"  onclick ="AgregarRegistroTP()" value="Guardar">
