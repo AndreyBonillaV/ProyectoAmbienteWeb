@@ -188,7 +188,7 @@ function RegistraProductoCompra(cant, idVenta, idProducto){
     XHR.onreadystatechange = function() {
         if (XHR.readyState == 4 && XHR.status == 200) {
 
-            if (XHR.responseText != "okRegistro") {
+            if (XHR.responseText == "okRegistro") {
 
                 alert("Compra realizada con exito!!!");
 
@@ -204,15 +204,9 @@ function RegistraProductoCompra(cant, idVenta, idProducto){
 function EliminarCarrito(idProducto){
 
     var ArticulosCarrito = JSON.parse(sessionStorage.getItem('Carrito'));
-    //console.log(ArticulosCarrito);
     
-    for(var i = 0; i < Carrito.length; i++){
-        Carrito.pop();
-    }
-
     for(var i = 0; i < ArticulosCarrito.length; i++){
-
-        if(ArticulosCarrito[i][0] != idProducto){     
+        if(ArticulosCarrito[i][0] == idProducto){     
             var producto = ArticulosCarrito[i];
         }
     }
@@ -220,9 +214,10 @@ function EliminarCarrito(idProducto){
     var index = ArticulosCarrito.indexOf(producto);
 
     if (index > -1) {
-        ArticulosCarrito.splice(index, 1); //elimina al estudiante
+        ArticulosCarrito.splice(index, 1); //elimina el producto
     }
 
-    console.log(ArticulosCarrito);
-    //CargarTablaCarrito();
+    sessionStorage.setItem("Carrito", JSON.stringify(ArticulosCarrito));
+
+    CargarTablaCarrito();
 }
