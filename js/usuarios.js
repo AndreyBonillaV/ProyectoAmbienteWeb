@@ -50,7 +50,9 @@ function validarUsuario(correo, password){
                 console.log(XHR.responseText);
                 
                 var cadena = XHR.responseText.split("_");
-                sessionStorage.setItem("IdRol", cadena[1]);
+                sessionStorage.setItem("idUsuario", cadena[0]);
+                sessionStorage.setItem("Cedula", cadena[1]);
+                sessionStorage.setItem("IdRol", cadena[2]);
 
                 window.location.href = "index.html";
 

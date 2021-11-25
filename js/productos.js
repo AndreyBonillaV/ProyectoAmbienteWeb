@@ -279,7 +279,6 @@ function RegistrarProducto(nom, descrip, img, precio, cant, tipo, prov){
             }
         }
     }
-
 }
 
 function EditarProducto(idProd, nom, descrip, img, precio, cant, tipo, prov){
@@ -398,21 +397,3 @@ function ActualizarTabla(idTipo){
 
     }
 }
-
-/*
-    var divCont = document.getElementById("container");
-
-    var divRow = document.createElement('div');
-    divRow.classList.add("row");
-
-    var divCol = document.createElement('div');
-    //divCol.innerHTML = "hola";
-
-    var img = document.createElement("img");
-    img.src = data[0].RutaImagenProducto;
-
-    divCol.appendChild(img);
-    divRow.appendChild(divCol);
-    divCont.appendChild(divRow);
-
- */

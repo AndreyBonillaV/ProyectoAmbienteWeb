@@ -64,7 +64,6 @@
             echo "0";
     }
 
-
     function CargarProductos(){
         require_once('conexionBD.php');
 

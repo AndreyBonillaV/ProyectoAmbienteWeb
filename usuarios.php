@@ -96,11 +96,12 @@
             $IdRol = "";
             $Cedula = "";
             while($row = $result->fetch_assoc()) {
+                $idUsuario = $row["IdUsuario"];
                 $Cedula = $row["Cedula"];
                 $IdRol= $row["IdRol"];
             }
             
-            return $Cedula. "_" .$IdRol;
+            return $idUsuario. "_" .$Cedula. "_" .$IdRol;
 
         }else{
             return "Error";
