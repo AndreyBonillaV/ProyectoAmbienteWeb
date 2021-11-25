@@ -207,7 +207,6 @@
         } else {
             return mysqli_error($conn);
         }
-
     }
 
     function CargarRoles(){
