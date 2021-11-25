@@ -104,7 +104,7 @@ function CalcularTotal(){
         total = total + totalProd;
 
     }
-    
+
     document.getElementById("lblTotal").innerHTML = total;
 
 }
@@ -167,6 +167,8 @@ function PreparaProductoCompra(idVenta){
         
         RegistraProductoCompra(cant, idVenta, ArticulosCarrito[i][0]);
     }
+
+    //sessionStorage.removeItem('Carrito');
 }
 
 function RegistraProductoCompra(cant, idVenta, idProducto){
