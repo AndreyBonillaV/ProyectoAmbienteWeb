@@ -23,6 +23,24 @@
 
             echo $result;
         break;
+
+        case "ELIMINAR_TIPO":
+
+            $IdTipo = $_GET["var1"];
+            $result = EliminarTipo($IdTipo);
+
+            echo $result;
+        break;
+
+        case "REGISTRO_TIPO":
+
+            $nom = $_GET["var1"];
+
+            $result = RegistroTipo($nom);
+
+            echo $result;
+        break;
+
         default:
             echo "0";
     }
@@ -67,18 +85,6 @@
         }
     }
 
-    function ModificarTipo1($idTipo, $nom){
-        require_once('conexionBD.php');
-
-        $sql_query = "UPDATE tbTipoProducto SET NombreTipoProducto='".$nom."' WHERE IdTipoProducto = '".$idTipo."'";
-
-        if (mysqli_query($conn, $sql_query)) {
-            return "okEditar";
-        } else {
-            return mysqli_error($conn);
-        }
-    }
-
     function ModificarTipo($idTipo, $nom){
 
         require_once('conexionBD.php');
@@ -91,5 +97,34 @@
             return mysqli_error($conn);
         }
 
+    }
+
+    function EliminarTipo($IdTipo){
+        
+        require_once('conexionBD.php');
+
+        $sql_query = "DELETE FROM tbTipoProducto WHERE IdTipoProducto = $IdTipo";
+        $result = mysqli_query($conn, $sql_query);
+
+        if(!$result) {
+            return mysqli_error($conn); //"ERROR";
+        }else {
+            return "okEliminado";    
+        }
+    }
+
+    function RegistroTipo($nom){
+
+        require_once('conexionBD.php');
+
+        $sql_query = "INSERT INTO tbTipoProducto (NombreTipoProducto) VALUES ('".$nom."')";
+
+        $result = mysqli_query($conn, $sql_query);
+
+        if(!$result) {
+            return mysqli_error($conn); //"ERROR";
+        }else {
+            return "okRegistro";    
+        }
     }
 ?>

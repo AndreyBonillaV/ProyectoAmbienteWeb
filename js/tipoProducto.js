@@ -141,3 +141,74 @@ function ModificarTipo(idTipo, tipo){
         }
     }
 }
+
+function EliminarTipo(idTipo){
+
+    if (confirm('Seguro que desea elimar este tipo de producto?')) {
+      
+        var opc = "ELIMINAR_TIPO";
+        var XHR = new XMLHttpRequest();
+
+        XHR.open(
+            "GET",
+            "tipoProducto.php?opc=" + opc + "&var1=" + idTipo,
+            true
+        );
+
+        XHR.send(null);
+
+        XHR.onreadystatechange = function() {
+            if (XHR.readyState == 4 && XHR.status == 200) {
+
+                console.log(XHR.responseText);
+                CargarTipos();
+                alert("Tipo de Producto elimando!!!");
+
+                /*if (XHR.responseText == "okEliminado") {
+                    console.log(XHR.responseText);
+                    CargarTipos();
+                    alert("Tipo de Producto elimando!!!");
+                    
+                } else {
+                    console.log("Error al eliminar Tipo de Producto: " + XHR.responseText);
+                    alert("Error al eliminiar Tipo producto");
+                }*/
+            }
+        }
+    }
+}
+
+function RegistrarTipo(tipo){
+
+
+    var XHR = new XMLHttpRequest();
+
+    var opc = "REGISTRO_TIPO";
+
+    XHR.open(
+        "GET",
+        "tipoProducto.php?opc=" + opc + "&var1=" + tipo,
+        true
+    );
+
+    XHR.send(null);
+
+    XHR.onreadystatechange = function() {
+        if (XHR.readyState == 4 && XHR.status == 200) {
+            /*console.log(XHR.responseText);
+            alert("Tipo de producto modificado correctamente!!!");
+            CargarTipos();*/
+
+            if (XHR.responseText == "okRegistro") {
+                //console.log(XHR.responseText);
+                alert("Tipo de Producto agregado correctamente!!!");
+                CargarTipos();
+            } else {
+                console.log(XHR.responseText);
+                alert("Error al agregar tipo producto");
+                return false;
+            }
+        }
+    }
+
+}
