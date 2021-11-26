@@ -13,8 +13,66 @@
     <!-- js propio -->
     <script language="JavaScript" type="text/javascript" src="js/productos.js"></script>
     <script language="JavaScript" type="text/javascript" src="js/carrito.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/usuarios.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body onload="CargarProductos(2), CargarTipos()">
+<body onload="CargarProductos(2), CargarTipos(), ValidarRolUsuario()">
+    
+        <!-- *********** INICIO MENÚ *********** -->
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">SG Sistemas</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="productosCliente.html">Productos</a>
+                        </li>
+                        <li class="nav-item dropdown" id="AdminMenu" style="display: none;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Administrador
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="usuarios.html">Usuarios</a></li>
+                                <li><a class="dropdown-item" href="proveedor.html">Provedores (Empresas)</a></li>
+                                <!--<li><hr class="dropdown-divider"></li>--> 
+                                <li><a class="dropdown-item" href="productos.html">Productos</a></li>
+                                <li><a class="dropdown-item" href="tipoProducto.html">Tipos de Producto</a></li>
+                            </ul>
+                        </li>
+    
+                        <li class="nav-item dropdown" id="ProvMenu" style="display: none;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Proveedor
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="productos.html">Productos</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled">Carrito</a>
+                        </li>
+                    </ul>
+                    <!--<form class="d-flex" action="login">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success btnSeparar" type="submit" >Iniciar Sesión</button>
+                        
+                    </form>-->
+                    <button class="btn btn-outline-success btnSeparar" type="submit" onclick="CerrarSesion()" id="btnCerrar" style="display: none;">Cerrar Sesión</button>
+                    <button class="btn btn-outline-success btnSeparar" type="submit" onclick="location.href='login.html'" id="btnIniciar">Iniciar Sesión</button>
+                    <button class="btn btn-outline-success btnSeparar" type="submit" onclick="location.href='registro.html'" id="btnRegistro">Registrarse</button>
+                </div>
+            </div>
+        </nav>
+        <!-- *********** FIN MENÚ *********** -->
+    
     <h1>Productos</h1>
 
     <br>
@@ -27,7 +85,7 @@
         <button type="submit" id="btnVerCarrito" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="CargarTablaCarrito()"  >Ver Carrito</button>
     </div>
     <br>
-    <table class="table" id="tblProductos" >
+    <table class="table table-striped table-hover" id="tblProductos" >
         <thead>
             <tr>
                 <th>Producto</th>
