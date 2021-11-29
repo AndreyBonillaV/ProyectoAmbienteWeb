@@ -2,7 +2,7 @@
 
     $servidor="localhost";
     $usuario="root";
-    $clave="1234";
+    $clave="admin";
     $baseDeDatos="bd_ambiente";
 
     $conn = mysqli_connect($servidor, $usuario, $clave, $baseDeDatos);
@@ -16,7 +16,7 @@
 
     function Conectar(){
         
-        $mysqli = new mysqli("localhost","root","1234", "bd_ambiente");
+        $mysqli = new mysqli("localhost","root","admin", "bd_ambiente");
 
         if($mysqli -> connect_errno){
             return false;
