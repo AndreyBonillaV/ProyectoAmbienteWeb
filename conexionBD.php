@@ -21,7 +21,7 @@
         if($mysqli -> connect_errno){
             return false;
 
-        }
+        } 
         return $mysqli;
     }
 ?>
