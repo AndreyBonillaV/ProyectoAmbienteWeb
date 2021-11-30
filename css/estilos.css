@@ -200,9 +200,9 @@
 
 .productoCliente{
     width: 90%;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 2%;
-    margin-right: 10%;
+    margin-right: 5%;
 }
 
 .imgProductos{
@@ -212,7 +212,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    grid-gap: 5px;
+    grid-gap: 7px;
     background-color: #222222;
     padding: 10px;
   }
