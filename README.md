@@ -3,7 +3,7 @@ Proyecto Ambiente Web / Página de venta de artículos tecnologicos
 
 Integrantes: 
 - Víctor Andrei Bonilla Valerín
-- Blondy Soto
+- Blondy Soto Garita
 - Carlos Morales
 
 Herramientas de trabajo:
@@ -12,3 +12,5 @@ Herramientas de trabajo:
 - Git / GitHub
 - Xampp
 - JavaScript
+- HTML5
+- CSS3
