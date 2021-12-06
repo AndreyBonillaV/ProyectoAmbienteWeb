@@ -1,110 +1,29 @@
-.navBar{
-    background-color: #222;
-    width: 100%;
-    display: block;
-    margin-top: 0px;
-    margin-bottom: -20px;
+body {
+  background-color: #ffffff;
+  font-size: 12px;
+  font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+  color: #000000;  
+  margin: 10px;
 }
 
-.footer_top{
-    width: 100%;
-    background-color: #444444;
-    color: #dddddd;
-    display: inline-table;
-    padding-top: 1%;
-    padding-bottom: 2%;
-}
-
-.compania{
-    margin: auto;
-    padding-left: 21%
-}
-
-.footer_bottom{
-    width: 100%;
-    background-color: #242424;
-    text-align: center;
-    color: #dddddd;
-    padding: 1%;
-}
-
-.divisor{
-    width: 65%;
-    border-top: 3px #dddddd solid;
-    margin: auto;
-    margin-top: 130px;
-}
-
-.pago{
-    color: #dddddd;         
-    float: left;
-    margin-top: 30px;
-    margin-left: 260px;
-}
-
-.confianza{
-    color: #dddddd;
-    float: right; 
-    margin-top: 30px;
-    margin-right: 350px;
-}
-
-.centrado{ 
-    position: relative;
-    width: 600px;
-    height: 300px;
-    margin: auto;
-    margin-top: 6.4%;
-    margin-bottom: 5%;
-}
-
-.contactenos{ 
-    text-align: center;
-    margin: auto;
-    margin-top: 4%;
-}
-
-.contacto{ 
-    width: 100%;
-    margin-top: 3.4%;
-    margin-bottom: 4%;
-    padding-left: 38%;
-}
-
-.redes{ 
-    margin: auto;
-    margin-left: 47%
-}
-
-.contacto-redes1{ 
-    margin-left: 20px;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    float: left;
-}
-.contacto-redes2{ 
-    margin-left: 20px;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    float: left;
-}
-.contacto-redes3{ 
-    margin-left: 20px;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    float: left;
-}
-
-.carrusel{
-    background-color: #F8F8F8;
-    align-content: center ; 
-    margin: auto;
+h1 {
+  font-family: Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+  font-size:  16px;
+  font-weight: bold;
+  margin: 0px;
+  padding: 0px;
+  color: #004ad2;
 }
 
 .acerca{
     line-height: 30px;
     align-content: center;
     margin-top: 5%;
+}
+
+.envio{
+    float: left;
+    text-height: 20px;
 }
 
 .terminos{
@@ -138,11 +57,6 @@
     margin-left: 50px;
 }
 
-.envio{
-    float: left;
-    text-height: 20px;
-}
-
 .texto{
     margin-left: 120px;
 }
@@ -161,52 +75,9 @@
     padding: 50px 450px; 
 }
 
-.product img{
-    width: 150px;
-}
-
-.card{
-    border-radius: 4px;
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,.24);
-}
-
-.btcart{
-    margin-top: 8px;
-    margin-left: 50px;
-}
-
-.buscar{
-    margin-top: 10px;
-    margin-left: 125px;
-}
-
-.logo{
-    margin-top: 7px;
-    margin-left: -250px;
-}
-
-.vendidos{
-    color: #036fab;
-    padding-top: 100px;
-    padding-left: 100px;
-    padding-bottom: 20px;
-}
-
-.productos{
-    padding-top: 50px;
-    padding-bottom: 75px;
-}
-
 .productoCliente{
-    width: 90%;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-right: 5%;
-}
-
-.imgProductos{
-    width: 100%;
+  width: 100%;
+  margin-top: 2%;
 }
 
 .grid-container {

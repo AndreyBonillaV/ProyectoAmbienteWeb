@@ -4,7 +4,7 @@ class myHeader extends HTMLElement {
         <header>
              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">SG Sistemas</a>
+            <a class="navbar-brand" href="index.html">SG Sistemas</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -100,7 +100,7 @@ class myFooter extends HTMLElement {
         <div class="col-6 col-lg-2 mb-3">
           <h6>SERVICIO AL CLIENTE</h6>
           <ul class="list-unstyled">
-            <li class="mb-2"><a href="contactenos.html">Contactar con Nosotros</a></li>
+            <li class="mb-2"><a href="contactenos.php">Contactar con Nosotros</a></li>
             <li class="mb-2"><a href="preguntas_frecuentes.html">Preguntas Frecuentes</a></li>
             <li class="mb-2"><a href="rastrear_orden.html">Rastrear tu Orden</a></li>
           </ul>
@@ -127,3 +127,7 @@ class myFooter extends HTMLElement {
 }
 
 customElements.define('my-footer', myFooter)
+
+
+
+
