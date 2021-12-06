@@ -12,5 +12,6 @@ Herramientas de trabajo:
 - Git / GitHub
 - Xampp
 - JavaScript
+- Bootstrap
 - HTML5
 - CSS3
